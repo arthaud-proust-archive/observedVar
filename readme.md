@@ -1,7 +1,7 @@
 # Package observedVar
 
 ## What is it?
-A package to simply add possibility to attach listeners to your variables.
+A package which simply allow you to attach listeners to your variables.
 
 ## How to install ?
 ```

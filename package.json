@@ -2,7 +2,7 @@
   "name": "observedvar",
   "version": "1.0.0",
   "description": "Create a variable to which you can attach listeners",
-  "main": "observedVar.js",
+  "main": "build.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
