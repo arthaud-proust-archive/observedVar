@@ -1,6 +1,6 @@
 {
   "name": "observedvar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create a variable to which you can attach listeners",
   "main": "build.js",
   "scripts": {
