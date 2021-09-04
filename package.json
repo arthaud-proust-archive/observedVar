@@ -1,0 +1,19 @@
+{
+  "name": "observedvar",
+  "version": "1.0.0",
+  "description": "Create a variable to which you can attach listeners",
+  "main": "observedVar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthaud-proust/observedVar.git"
+  },
+  "author": "Arthaud Proust",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arthaud-proust/observedVar/issues"
+  },
+  "homepage": "https://github.com/arthaud-proust/observedVar#readme"
+}
