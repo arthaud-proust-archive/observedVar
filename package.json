@@ -2,9 +2,10 @@
   "name": "observedvar",
   "version": "1.0.1",
   "description": "Create a variable to which you can attach listeners",
-  "main": "build.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/arthaud-proust/observedVar/issues"
   },
-  "homepage": "https://github.com/arthaud-proust/observedVar#readme"
+  "homepage": "https://github.com/arthaud-proust/observedVar#readme",
+  "devDependencies": {
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0"
+  }
 }
