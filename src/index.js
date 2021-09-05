@@ -33,7 +33,7 @@ class ObservedVar {
     sub(...args) { return this.subscribe(...args); }
 
     once(fn, expectedValueToSubscribe) {
-        if(this.value === expectedValueToSubscribe) {
+        if(this.value() === expectedValueToSubscribe) {
             this.subscribe(fn, true);
         } else {
             fn();
