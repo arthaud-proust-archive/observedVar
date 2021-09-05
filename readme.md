@@ -1,11 +1,11 @@
-# Package observedVar
+# Package ObservedVar
 
 ## What is it?
 A package which simply allows you to attach listeners to your variables.
 
 ## How to install ?
-```
-npm i observedvar
+```shell
+$ npm i observedvar
 ```
 
 ## How it works?
@@ -20,39 +20,52 @@ const { Ov } = require('observedvar');
 #### Create an observed variable
 ```js
 const foo = new ObservedVar('defaultValue');
-// or 
+// or (shorthand with the right import)
 const foo = new Ov('defaultValue');
 ```
 
 #### Set value 
 ```js
-foo.set('new value)
+foo.set('new value')
 ```
 
 #### Get value
+Be attentive to shallow copy (this fonctionnality can be added to the package, you can propose a modification)
 ```js
-foo.value
+foo.value()
 // or 
 foo.get()
 ```
 
 #### Add a listener, for everytime or once
-It return listener id, required to remove it.
+It return a listener object, use his id to unsubscribe.
 ```js
-const listenerId = foo.subscribe(
-    ()=>console.log('Foo value changed'),
-    isDestroyedAfterBeingCalled // default is false
+const callback = (listener, newValue)=>{
+    console.log(`(listener ${listener.id}) Foo value changed, his value is now ${newValue}`)
+    if(conditionToDestroy) {
+        listener.destroy();
+    }
+};
+
+const fooListener = foo.subscribe(
+    callback,
+    isDirectlyDestroyedAfterBeingCalled // default is false
 );
 // shorthands
 foo.sub(...)
-foo.once(...) // equals to foo.sub(..., true)
+foo.once(...) // equals to foo.sub(callback, true)
 ```
 
 #### Remove a listener
+With the Ov variable
 ```js
-foo.unsubscribe(listenerId);
+foo.unsubscribe(fooListener.id);
 // shorthand
 foo.unsub(...);
+```
+Or directly from the listener
+```js
+fooListener.destroy();
 ```
 
 
@@ -60,7 +73,7 @@ foo.unsub(...);
 #### The method once has another use  
 You could use a listener to handle a fetch result.
 To prevent the following case
-```
+```js
 const fetchedData = new ObservedVar(null);
 fetch(...).then(data=>{
     fetchedData.set(data);
@@ -79,7 +92,7 @@ if(fetchedData===null) {
 }
 ```
 Use `once()` like that:
-```
+```js
 const fetchedData = new ObservedVar(null);
 fetch(...).then(data=>{
     fetchedData.set(data);
@@ -91,6 +104,23 @@ fetchedData.once(
     handleData,
     null // The value expected to subscribe a listener
 );
+```
+
+## Listener object
+It is returned when the method `.subscribe(...)` is called, or within the callback
+```js
+const fooListener = foo.sub(listener=>{
+    console.log(listener)
+}, once);
+
+console.log(fooListener)
+
+// listener = fooListener = {
+//      once: false,
+//      id: 0,
+//      destroy: [Function: destroy],
+//      callback: [Function: callback]
+// }
 
 ```
 

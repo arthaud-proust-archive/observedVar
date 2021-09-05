@@ -12,16 +12,23 @@ class ObservedVar {
     }
 
     get lastIndex() {
-        return parseInt(this.indexes[this.indexes.length-1]);
+        let i = parseInt(this.indexes[this.indexes.length-1]);
+        return isNaN(i)?-1:i;
     }
 
-    subscribe(fn, once) {
-        let listenerIndex = this.lastIndex+1;
-        this.listeners[listenerIndex] = {
+    subscribe(fn, once=false) {
+        let listenerId = this.lastIndex+1;
+        let listener = {
             once,
-            fn
-        }
-        return {listenerIndex};
+            id: listenerId,
+            destroy:()=>this.unsub(listenerId),
+            callback: ()=>fn({ 
+                id: listenerId, 
+                destroy:()=>this.unsub(listenerId)
+            }, this.value())
+        };
+        this.listeners[listenerId] = listener;
+        return listener;
     }
     sub(...args) { return this.subscribe(...args); }
 
@@ -40,7 +47,7 @@ class ObservedVar {
 
     fire() {
         for(const [id, listener] of Object.entries(this.listeners)) {
-            listener.fn();
+            listener.callback();
             if(listener.once) {
                 delete this.listeners[id];
             }
@@ -52,12 +59,11 @@ class ObservedVar {
     }
 
     // don't modify directly
-    get value() {
+    value() {
         return this._value;
     }
-
     get() {
-        return this.value;
+        return this._value;
     }
 
     set(value) {
