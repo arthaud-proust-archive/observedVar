@@ -25,7 +25,7 @@ class ObservedVar {
             callback: ()=>fn({ 
                 id: listenerId, 
                 destroy:()=>this.unsub(listenerId)
-            }, this.value())
+            }, this.get())
         };
         this.listeners[listenerId] = listener;
         return listener;
@@ -33,7 +33,7 @@ class ObservedVar {
     sub(...args) { return this.subscribe(...args); }
 
     once(fn, expectedValueToSubscribe) {
-        if(this.value() === expectedValueToSubscribe) {
+        if(this.get() === expectedValueToSubscribe) {
             this.subscribe(fn, true);
         } else {
             fn();
@@ -59,17 +59,21 @@ class ObservedVar {
     }
 
     // don't modify directly
-    value() {
-        return this._value;
-    }
     get() {
         return this._value;
     }
-
     set(value) {
         this._version++;
         this._value = value;
         this.fire();
+    }
+
+    set value(value) {
+        this.set(value);
+    }
+
+    get value() {
+        return this._value;
     }
 }
 

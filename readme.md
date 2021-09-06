@@ -26,13 +26,14 @@ const foo = new Ov('defaultValue');
 
 #### Set value 
 ```js
+foo.value = 'new value'
+// or
 foo.set('new value')
 ```
 
 #### Get value
-Be attentive to shallow copy (this fonctionnality can be added to the package, you can propose a modification)
 ```js
-foo.value()
+foo.value
 // or 
 foo.get()
 ```
@@ -76,7 +77,7 @@ To prevent the following case
 ```js
 const fetchedData = new ObservedVar(null);
 fetch(...).then(data=>{
-    fetchedData.set(data);
+    fetchedData.value = data;
 });
 
 ...
@@ -95,7 +96,7 @@ Use `once()` like that:
 ```js
 const fetchedData = new ObservedVar(null);
 fetch(...).then(data=>{
-    fetchedData.set(data);
+    fetchedData.value = data;
 });
 
 ...
