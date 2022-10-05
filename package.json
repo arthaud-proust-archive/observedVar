@@ -4,7 +4,7 @@
   "description": "Create a variable to which you can attach listeners",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "build": "webpack",
     "prepublishOnly": "webpack --mode=production"
   },
@@ -22,5 +22,9 @@
     "terser-webpack-plugin": "^5.2.3",
     "webpack": "^5.52.0",
     "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "mocha": "^10.0.0",
+    "uuid": "^9.0.0"
   }
 }
